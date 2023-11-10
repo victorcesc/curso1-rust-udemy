@@ -1,6 +1,42 @@
 use std::io;
 mod functions;
 
+enum Direction{
+    Up,
+    Down,
+    Left,
+    Right
+}
+
+#[derive(Debug)]
+enum Gender{
+    Male,
+    Female
+}
+
+#[derive(Debug)]
+enum CarType{
+    Fiat,
+    Ford,
+    Renault
+}
+
+enum Pagamento{
+    Dinheiro(f32),
+    CreditoCartao(bool,f32),
+    DebitoCartao(bool,f32)
+}
+
+
+fn nacionalidade_carro(car:CarType){
+    match car {
+        CarType::Fiat => println!("O carro é italiano"),
+        CarType::Ford => println!("O carro é americano"),
+        CarType::Renault => println!("O carro é frances")
+    }
+
+}
+
 fn main() {
 
     // flow control
@@ -64,4 +100,92 @@ fn main() {
     let result = test.iter().fold(1, |acc , &x| acc * x);
     println!("GCD/MDC of  : {:?}", result);
 
+
+
+    // TUPLAS
+
+    let tupla = (12, "valores", 3.14, (1,2,3));
+    println!("{}", tupla.1);
+
+    // ENUMS
+    let player:Direction = Direction::Right;
+    match player{
+        Direction::Up => println!("O jogador foi pra cima"),
+        Direction::Down => println!("O jogador foi pra baixo"),
+        Direction::Right => println!("O jogador foi pra direita"),
+        Direction::Left => println!("O jogador foi pra esquerda")
+    }
+
+    let player_male:Gender = Gender::Male;
+    let player_female:Gender = Gender::Female;
+    println!("{:?}",player_male);
+    println!("{:?}",player_female);
+    //let player:Direction = Direction::Left;
+    nacionalidade_carro(CarType::Fiat);
+    nacionalidade_carro(CarType::Ford);
+    nacionalidade_carro(CarType::Renault);
+
+    let pessoa_pagamento = Pagamento::DebitoCartao(true,100f32);
+
+    match pessoa_pagamento{
+        Pagamento::CreditoCartao(true,f) => println!("A pessoa pagou com Credito valor {}", f),
+        Pagamento::DebitoCartao(true,x) => println!("A pessoa pagou com Debito valor {}", x),
+        Pagamento::DebitoCartao(false,x) => println!("O pagamento não funcionou com Debito!! Valor : {}",x),
+        _ => println!("outro pagamento")
+    }
+
+    // code block
+    #[derive(Debug)]
+    struct Point {
+        x: i32,
+        y: i32,
+    }
+     
+    impl Point {
+        fn new(x: i32, y: i32) -> Point {
+            Point { x, y }
+        }
+    }
+    let x = Point::new(10,20);
+    println!("{:?}",x );
+
+    // shadowing
+
+    let x = 5; // x é uma variável de nível de escopo com o valor 5
+     
+    {
+        let x = x + 1; // x é sombreado aqui com o valor 6
+        println!("x inside: {}", x); // imprime "x inside: 6"
+    }
+     
+    println!("x outside: {}", x); // imprime "x outside: 5"
+
+
+    // references
+
+    let mut x = 5;
+    let y = &mut x;
+    *y += 1;
+    println!("x is {}", x); 
+    
+
+
+    // strings
+
+   
+    let mut minhaString: String = String::from("Ola meu nom eh Henrique");
+    println!("O tamanho dessa string eh {},", minhaString.len());
+    println!("A minha esta vazia ? {},", minhaString.is_empty());
+    for token in minhaString.split_whitespace(){
+        println!("{}", token);
+    }
+    println!("O nome Henrique esta contido an String? {}", minhaString.contains("Henrique"));
+    minhaString.push_str("Bem-vindo a aula ");
+    println!("{}", minhaString);
+     
+    let mut frase = String::new();
+    frase = "victor,cesconetto".to_string();
+    frase = frase.replace(",","" );
+    println!("{:?}", frase);
+    
 }
