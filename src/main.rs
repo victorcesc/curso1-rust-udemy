@@ -1,4 +1,5 @@
 use std::io;
+use std::collections::{HashMap};
 mod functions;
 
 enum Direction{
@@ -187,5 +188,44 @@ fn main() {
     frase = "victor,cesconetto".to_string();
     frase = frase.replace(",","" );
     println!("{:?}", frase);
+
+
+    // arrays
+
+    let numeros_inteiros: [i32; 5] = [1, 2, 3, 4, 5];
+    for n in numeros_inteiros.iter(){
+        println!("{}", n);
+    }
     
+    // vectors
+
+    let mut vetores = vec![1, 2, 3, 4];
+    vetores.push(5);
+    println!("{}", vetores[4]);
+    vetores.remove(1);
+    println!("{:?}", vetores);
+ 
+    for i in vetores.iter(){
+        println!("{}", i);
+    }
+ 
+    // hashmaps
+
+    
+    let mut hash_map = HashMap::new();
+    hash_map.insert("Matematica", 90);
+    hash_map.insert("Portugues", 72);
+    hash_map.insert("Biologia", 58);
+    hash_map.insert("Informatica", 96);
+    
+    println!("Quantas materias o aluno cursou? {}", hash_map.len());
+    
+    match hash_map.get("Informatica"){
+        Some(k) => println!("O aluno cursou Informatica e tirou {}", k),
+        None => println!("O aluno nao cursou Informatica")
+    }
+    
+    
+    
+
 }
